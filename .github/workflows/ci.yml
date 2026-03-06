@@ -9,27 +9,24 @@ jobs:
   build-and-test:
     runs-on: self-hosted
 
-    defaults:
-      run:
-        shell: pwsh
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Use system Python 3.12
-        run: |
-          & "C:\Python312\python.exe" --version
+      - name: Show Python version
+        run: >
+          "C:\Python312\python.exe" --version
 
       - name: Install dependencies
-        run: |
-          & "C:\Python312\python.exe" -m pip install --upgrade pip
-          & "C:\Python312\python.exe" -m pip install -r backend/requirements.txt
+        run: >
+          "C:\Python312\python.exe" -m pip install --upgrade pip;
+          "C:\Python312\python.exe" -m pip install -r backend/requirements.txt
 
       - name: Run tests
-        run: |
-          & "C:\Python312\python.exe" -m pytest backend/tests
+        run: >
+          "C:\Python312\python.exe" -m pytest backend/tests
 
       - name: Build Docker image
-        run: |
+        run: >
           docker compose build
+
